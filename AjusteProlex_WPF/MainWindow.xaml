@@ -1,0 +1,60 @@
+﻿<Controls:MetroWindow x:Class="AjusteProlex_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:AjusteProlex_WPF"
+        mc:Ignorable="d"
+        Title="Ajuste Prolex" Height="600" Width="800" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" Icon="Resources/harry-icone.ico">
+    <Grid>
+        <StackPanel>
+        <Image HorizontalAlignment="Center" Margin="10" VerticalAlignment="Top" Source="Resources/logo-automatiza.png" Stretch="Fill" Width="247" Height="79"/>
+            <TabControl Margin="10" VerticalAlignment="Top" Padding="2">
+            <TabItem Header="Plataforma">
+                <Grid>
+                    <StackPanel>
+                        <WrapPanel HorizontalAlignment="Center">
+                            <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Margin="5" Width="32" Source="Resources/icons8-Workstation-32.png" Stretch="None" AutomationProperties.HelpText="Servidor"/>
+                            <RadioButton x:Name="CheckServidor" Content="Servidor" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Height="32" Checked="CheckServidor_Checked"/>
+                            <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Margin="25,5,5,5" Width="32" Source="Resources/icons8-Under Computer-32.png" Stretch="None" AutomationProperties.HelpText="Terminal"/>
+                            <RadioButton x:Name="CheckTerminal" Content="Terminal" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Height="32" Checked="CheckTerminal_Checked"/>
+                        </WrapPanel>
+                        <StackPanel x:Name="PanelFirebird" Margin="10" IsEnabled="False">
+                        <Label Content="Selecione o arquivo de configuração do Firebird" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="264"/>
+                        <Button x:Name="BtnAbrirArqFirebird" Content="Abrir" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="96" Click="BtnAbrirArqFirebird_Click"/>
+                        <Label x:Name="labelLocalizacaoArqFirebird" Content="" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="TextBlockFirebird" TextWrapping="Wrap" Text="" Margin="150,10"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+                
+            <TabItem Header="Protesto">
+                <Grid>
+
+                </Grid>
+            </TabItem>
+                
+            <TabItem Header="TDPJ">
+                <Grid>
+                    
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="ProlexNet">
+                <Grid>
+
+                </Grid>
+            </TabItem>
+                
+            <TabItem Header="Outros Ajustes">
+                <Grid>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button Content="Salvar" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Bottom" Width="96"/>
+        </StackPanel>
+    </Grid>
+</Controls:MetroWindow>
