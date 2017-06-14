@@ -6,18 +6,18 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:AjusteProlex_WPF"
         mc:Ignorable="d"
-        Title="Ajuste Prolex" Height="600" Width="800" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" Icon="Resources/harry-icone.ico">
+        Title="Ajuste Prolex" Height="600" Width="800" WindowStartupLocation="CenterScreen" Icon="Resources/icone.ico" TitleCaps="False">
     <Grid>
         <StackPanel>
-        <Image HorizontalAlignment="Center" Margin="10" VerticalAlignment="Top" Source="Resources/logo-automatiza.png" Stretch="Fill" Width="247" Height="79"/>
+        <Image HorizontalAlignment="Center" Margin="10" VerticalAlignment="Top" Source="Resources/logo-automatiza.png" Width="247" Height="79"/>
             <TabControl Margin="10" VerticalAlignment="Top" Padding="2">
             <TabItem Header="Plataforma">
                 <Grid>
                     <StackPanel>
                         <WrapPanel HorizontalAlignment="Center">
-                            <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Margin="5" Width="32" Source="Resources/icons8-Workstation-32.png" Stretch="None" AutomationProperties.HelpText="Servidor"/>
+                            <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Margin="5" Width="32" Source="Resources/icons8-Workstation-32.png" AutomationProperties.HelpText="Servidor"/>
                             <RadioButton x:Name="CheckServidor" Content="Servidor" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Height="32" Checked="CheckServidor_Checked"/>
-                            <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Margin="25,5,5,5" Width="32" Source="Resources/icons8-Under Computer-32.png" Stretch="None" AutomationProperties.HelpText="Terminal"/>
+                            <Image HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Margin="25,5,5,5" Width="32" Source="Resources/icons8-Under Computer-32.png" AutomationProperties.HelpText="Terminal"/>
                             <RadioButton x:Name="CheckTerminal" Content="Terminal" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Height="32" Checked="CheckTerminal_Checked"/>
                         </WrapPanel>
                         <StackPanel x:Name="PanelFirebird" Margin="10" IsEnabled="False">
