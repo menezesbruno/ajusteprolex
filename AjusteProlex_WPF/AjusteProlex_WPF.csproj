@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\icone.ico</ApplicationIcon>
+    <ApplicationIcon>icone.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
@@ -108,43 +108,102 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\icons8-Add Database-16.png" />
+    <Resource Include="Resources\icons8-Add Database-24.png" />
+    <Resource Include="Resources\icons8-Add Database-32.png" />
+    <Resource Include="Resources\icons8-Automatic-100.png" />
+    <Resource Include="Resources\icons8-Data Configuration-16.png" />
+    <Resource Include="Resources\icons8-Data Configuration-24.png" />
+    <Resource Include="Resources\icons8-Data Configuration-32.png" />
+    <Resource Include="Resources\icons8-Data Configuration-48 %281%29.png" />
+    <Resource Include="Resources\icons8-Data Configuration-48.png" />
+    <Resource Include="Resources\icons8-Data Encryption-16.png" />
+    <Resource Include="Resources\icons8-Data Encryption-24.png" />
+    <Resource Include="Resources\icons8-Data Encryption-32.png" />
+    <Resource Include="Resources\icons8-Data Encryption-48.png" />
+    <Resource Include="Resources\icons8-Data Protection-16.png" />
+    <Resource Include="Resources\icons8-Data Protection-24.png" />
+    <Resource Include="Resources\icons8-Data Protection-32.png" />
+    <Resource Include="Resources\icons8-Data Protection-48.png" />
+    <Resource Include="Resources\icons8-Database View-16.png" />
+    <Resource Include="Resources\icons8-Database View-24.png" />
+    <Resource Include="Resources\icons8-Database View-32.png" />
+    <Resource Include="Resources\icons8-Database View-48.png" />
+    <Resource Include="Resources\icons8-Delete Database-16.png" />
+    <Resource Include="Resources\icons8-Delete Database-24.png" />
+    <Resource Include="Resources\icons8-Delete Database-32.png" />
+    <Resource Include="Resources\icons8-Delete Database-48.png" />
+    <Resource Include="Resources\icons8-HIPS-24.png" />
+    <Resource Include="Resources\icons8-Monitor-24.png" />
+    <Resource Include="Resources\icons8-Monitor-32.png" />
+    <Resource Include="Resources\icons8-Monitor-48.png" />
+    <Resource Include="Resources\icons8-Registry Editor-16.png" />
+    <Resource Include="Resources\icons8-Registry Editor-24.png" />
+    <Resource Include="Resources\icons8-Registry Editor-32.png" />
+    <Resource Include="Resources\icons8-Registry Editor-48.png" />
+    <Resource Include="Resources\icons8-Services-528.png" />
+    <Resource Include="Resources\icons8-Settings-100.png" />
+    <Resource Include="Resources\icons8-Settings-528.png" />
+    <Resource Include="Resources\icons8-SQL-16.png" />
+    <Resource Include="Resources\icons8-SQL-24.png" />
+    <Resource Include="Resources\icons8-SQL-32.png" />
+    <Resource Include="Resources\icons8-SQL-48.png" />
+    <Resource Include="Resources\icons8-System Information-16.png" />
+    <Resource Include="Resources\icons8-System Information-24.png" />
+    <Resource Include="Resources\icons8-System Information-32.png" />
+    <Resource Include="Resources\icons8-System Information-48.png" />
+    <Resource Include="Resources\icons8-System Report-16.png" />
+    <Resource Include="Resources\icons8-System Report-24.png" />
+    <Resource Include="Resources\icons8-System Report-32.png" />
+    <Resource Include="Resources\icons8-System Report-48.png" />
+    <Resource Include="Resources\icons8-Under Computer-24.png" />
+    <Resource Include="Resources\icons8-Under Computer-32.png" />
+    <Resource Include="Resources\icons8-Under Computer-48.png" />
+    <Resource Include="Resources\icons8-Virtual Machine 2-24.png" />
+    <Resource Include="Resources\icons8-Virtual Machine 2-32.png" />
+    <Resource Include="Resources\icons8-Virtual Machine 2-48.png" />
+    <Resource Include="Resources\icons8-Windows Client-24.png" />
+    <Resource Include="Resources\icons8-Workstation-24.png" />
+    <Resource Include="Resources\icons8-Workstation-32.png" />
+    <Resource Include="Resources\icons8-Workstation-48.png" />
+    <Resource Include="Resources\icons8-Workstation-64.png" />
+    <Resource Include="Resources\icons8-X64-16.png" />
+    <Resource Include="Resources\icons8-X64-24.png" />
+    <Resource Include="Resources\icons8-X64-32.png" />
+    <Resource Include="Resources\icons8-X64-48.png" />
+    <Resource Include="Resources\icons8-X86-16.png" />
+    <Resource Include="Resources\icons8-X86-24.png" />
+    <Resource Include="Resources\icons8-X86-32.png" />
+    <Resource Include="Resources\icons8-X86-48.png" />
     <Resource Include="Resources\logo-automatiza.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icone.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\icone.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\gear-icone.ico" />
-    <Resource Include="Resources\harry-icone.ico" />
+    <Resource Include="Resources\icons8-About-16.png" />
+    <Resource Include="Resources\icons8-About-24.png" />
+    <Resource Include="Resources\icons8-About-32.png" />
+    <Resource Include="Resources\icons8-About-48.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\icons8-Workstation-48.png" />
-    <Resource Include="Resources\icons8-Workstation-64.png" />
+    <Resource Include="Resources\icons8-Info-16.png" />
+    <Resource Include="Resources\icons8-Info-24.png" />
+    <Resource Include="Resources\icons8-Info-32.png" />
+    <Resource Include="Resources\icons8-Info-48.png" />
+    <Resource Include="Resources\icons8-Save-16.png" />
+    <Resource Include="Resources\icons8-Save-24.png" />
+    <Resource Include="Resources\icons8-Save-32.png" />
+    <Resource Include="Resources\icons8-Save-48.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\icons8-Data Configuration-48.png" />
-    <Resource Include="Resources\icons8-Database View-48.png" />
-    <Resource Include="Resources\icons8-Delete Database-48.png" />
-    <Resource Include="Resources\icons8-Monitor-48.png" />
-    <Resource Include="Resources\icons8-System Information-48.png" />
-    <Resource Include="Resources\icons8-System Report-48.png" />
-    <Resource Include="Resources\icons8-Under Computer-48.png" />
-    <Resource Include="Resources\icons8-Virtual Machine 2-48.png" />
-    <Resource Include="Resources\icons8-X64-48.png" />
-    <Resource Include="Resources\icons8-X86-48.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\icons8-Add Database-32.png" />
-    <Resource Include="Resources\icons8-Database View-32.png" />
-    <Resource Include="Resources\icons8-Delete Database-32.png" />
-    <Resource Include="Resources\icons8-System Information-32.png" />
-    <Resource Include="Resources\icons8-System Report-32.png" />
-    <Resource Include="Resources\icons8-X64-32.png" />
-    <Resource Include="Resources\icons8-X86-32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\icons8-Under Computer-32.png" />
-    <Resource Include="Resources\icons8-Workstation-32.png" />
+    <Resource Include="Resources\icons8-Open-16.png" />
+    <Resource Include="Resources\icons8-Open-24.png" />
+    <Resource Include="Resources\icons8-Open-32.png" />
+    <Resource Include="Resources\icons8-Open-48.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
