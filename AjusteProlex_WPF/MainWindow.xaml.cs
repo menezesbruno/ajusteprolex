@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.IO;
 using Microsoft.Win32;
+using System.Reflection;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace AjusteProlex_WPF
 {
@@ -29,6 +31,7 @@ namespace AjusteProlex_WPF
         public string LocalizacaoBancoTDPJ { get; set; }
         public string LocalizacaoInstrumentoEletronico { get; set; }
         public string LocalizacaoSeloEletronico { get; set; }
+        public object Versao = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public MainWindow()
         {
@@ -84,6 +87,29 @@ namespace AjusteProlex_WPF
             PanelFirebird.IsEnabled = false;
             labelLocalizacaoArqFirebird.Content = "";
             TextBlockFirebird.Text = "";
+        }
+
+        private void ButtonSobre_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show($"Versão do programa: {Versao}", "Versão", MessageBoxButton.OK,MessageBoxImage.Information);
+        }
+
+        private void ButtonSalvar_Click(object sender, RoutedEventArgs e)
+        {
+            var Titulo = "Aviso";
+            var Mensagem = "Deseja salvar as alterações?";
+            var BotoesConfig = MessageDialogStyle.AffirmativeAndNegative;
+            var DialogoConfig = new MetroDialogSettings()
+            {
+                AffirmativeButtonText = "OK",
+                NegativeButtonText = "Cancelar",
+                AnimateHide = true,
+                AnimateShow = true,
+                ColorScheme = MetroDialogColorScheme.Accented
+            };
+            
+            
+            this.ShowMessageAsync(Titulo, Mensagem, BotoesConfig, DialogoConfig);
         }
     }
 }

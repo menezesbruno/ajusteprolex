@@ -44,6 +44,7 @@
                 Source="Resources/logo-automatiza.png"
                 Stretch="UniformToFill" />
             <Button
+                x:Name="buttonSobre"
                 Grid.Row="0"
                 Grid.Column="0"
                 Width="96"
@@ -51,6 +52,7 @@
                 Padding="0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
+                Click="ButtonSobre_Click"
                 Focusable="False">
                 <Grid VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
@@ -269,6 +271,7 @@
         </TabControl>
 
         <Button
+            x:Name="buttonSalvar"
             Grid.Row="2"
             Grid.Column="0"
             Width="96"
@@ -276,6 +279,7 @@
             Padding="0"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
+            Click="ButtonSalvar_Click"
             Focusable="False">
             <Grid>
                 <Grid.ColumnDefinitions>
