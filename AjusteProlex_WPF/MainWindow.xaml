@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:AjusteProlex_WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Ajuste Prolex"
     Width="800"
@@ -43,45 +42,15 @@
                 VerticalAlignment="Top"
                 Source="Resources/logo-automatiza.png"
                 Stretch="UniformToFill" />
-            <Button
-                x:Name="buttonSobre"
-                Grid.Row="0"
-                Grid.Column="0"
-                Width="96"
-                Height="26"
-                Padding="0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Click="ButtonSobre_Click"
-                Focusable="False">
-                <Grid VerticalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Image
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Width="24"
-                        Height="24"
-                        Source="Resources/icons8-Info-48.png"
-                        Stretch="UniformToFill" />
-                    <Label
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Content="Sobre" />
-                </Grid>
-            </Button>
         </Grid>
         <TabControl
+            x:Name="TabGeral"
             Grid.Row="1"
             Grid.Column="0"
             Margin="10"
-            VerticalAlignment="Top">
-            <TabItem Header="Plataforma">
+            VerticalAlignment="Stretch"
+            SelectionChanged="TabGeral_SelectionChanged">
+            <TabItem x:Name="TabPlataforma" Header="Plataforma">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -89,7 +58,7 @@
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <Grid
@@ -105,7 +74,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
                         <Image
@@ -151,7 +120,10 @@
                             Checked="CheckTerminal_Checked"
                             Content="Terminal" />
                     </Grid>
-                    <Grid Grid.Row="1" Grid.Column="0">
+                    <Grid
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        VerticalAlignment="Stretch">
                         <StackPanel
                             x:Name="PanelFirebird"
                             Margin="10"
@@ -210,19 +182,198 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Protesto">
+            <TabItem
+                x:Name="TabProtesto"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Header="Protesto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <GroupBox
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                VerticalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                Header="Prolex 6.1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" Grid.Column="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Text="Selecione o arquivo de Configuração do Prolex"
+                                            TextWrapping="Wrap" />
+                                        <Button
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            Margin="20"
+                                            Content="Abrir"
+                                            Focusable="False" />
+                                        <TextBlock
+                                            Grid.Row="2"
+                                            Grid.Column="0"
+                                            Text="Caminho do .config"
+                                            TextWrapping="Wrap" />
+                                    </Grid>
+
+                                    <Grid Grid.Row="1" Grid.Column="0">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Text="Selecione o arquivo do banco de dados (*.Prolex ou *.FDB)"
+                                                TextWrapping="Wrap" />
+                                            <Button
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                Margin="20"
+                                                Content="Abrir"
+                                                Focusable="False" />
+                                            <TextBlock
+                                                Grid.Row="2"
+                                                Grid.Column="0"
+                                                Text="Caminho do Banco de Dados"
+                                                TextWrapping="Wrap" />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <GroupBox
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                VerticalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                Header="Selo Eletrônico">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Text="Selecione o arquivo de Configuração do Selo Eletrônico"
+                                        TextWrapping="Wrap" />
+                                    <Button
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Margin="20"
+                                        Content="Abrir" />
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Content="Caminho do .config" />
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <GroupBox
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                VerticalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                Header="Instrumento Eletrônico">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Text="Selecione o arquivo de Configuração do Instrumento Eletrônico"
+                                        TextWrapping="Wrap" />
+                                    <Button
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Margin="20"
+                                        Content="Abrir" />
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Content="Caminho do .config" />
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem x:Name="TabTDPJ" Header="TDPJ">
                 <Grid />
             </TabItem>
 
-            <TabItem Header="TDPJ">
+            <TabItem x:Name="TabProlexNet" Header="ProlexNet">
                 <Grid />
             </TabItem>
 
-            <TabItem Header="ProlexNet">
-                <Grid />
-            </TabItem>
-
-            <TabItem Header="Outros Ajustes">
+            <TabItem x:Name="TabOutrosAjustes" Header="Outros Ajustes">
                 <Grid>
                     <StackPanel>
                         <WrapPanel

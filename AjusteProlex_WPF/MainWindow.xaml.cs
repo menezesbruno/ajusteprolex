@@ -1,22 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.IO;
 using Microsoft.Win32;
 using System.Reflection;
 using MahApps.Metro.Controls.Dialogs;
+using System.Windows.Input;
+using MahApps.Metro;
 
 namespace AjusteProlex_WPF
 {
@@ -31,6 +22,7 @@ namespace AjusteProlex_WPF
         public string LocalizacaoBancoTDPJ { get; set; }
         public string LocalizacaoInstrumentoEletronico { get; set; }
         public string LocalizacaoSeloEletronico { get; set; }
+
         public object Versao = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public MainWindow()
@@ -75,7 +67,6 @@ namespace AjusteProlex_WPF
             {
                 MessageBox.Show(ex.Message);
             }
-           
             PanelFirebird.IsEnabled = true;
             labelLocalizacaoArqFirebird.Content = file;
             TextBlockFirebird.Text = File.ReadAllText(file);
@@ -83,33 +74,51 @@ namespace AjusteProlex_WPF
 
         private void CheckTerminal_Checked(object sender, RoutedEventArgs e)
         {
-
             PanelFirebird.IsEnabled = false;
             labelLocalizacaoArqFirebird.Content = "";
             TextBlockFirebird.Text = "";
         }
 
-        private void ButtonSobre_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show($"Versão do programa: {Versao}", "Versão", MessageBoxButton.OK,MessageBoxImage.Information);
-        }
-
         private void ButtonSalvar_Click(object sender, RoutedEventArgs e)
         {
-            var Titulo = "Aviso";
-            var Mensagem = "Deseja salvar as alterações?";
-            var BotoesConfig = MessageDialogStyle.AffirmativeAndNegative;
-            var DialogoConfig = new MetroDialogSettings()
+            var titulo = "Aviso";
+            var mensagem = "Deseja salvar as alterações?";
+            var botoesConfig = MessageDialogStyle.AffirmativeAndNegative;
+            var dialogoConfig = new MetroDialogSettings()
             {
                 AffirmativeButtonText = "OK",
                 NegativeButtonText = "Cancelar",
                 AnimateHide = true,
-                AnimateShow = true,
-                ColorScheme = MetroDialogColorScheme.Accented
+                AnimateShow = true
             };
-            
-            
-            this.ShowMessageAsync(Titulo, Mensagem, BotoesConfig, DialogoConfig);
+            this.ShowMessageAsync(titulo, mensagem, botoesConfig, dialogoConfig);
+        }
+
+        private void TabGeral_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            var name = ((FrameworkElement)((object[])e.AddedItems)[0]).Name;
+            var color = ""; 
+            switch (name)
+            {
+                case "TabPlataforma":
+                    color = "Blue";
+                    break;
+                case "TabProtesto":
+                    color = "Yellow";
+                    break;
+                case "TabTDPJ":
+                    color = "Indigo";
+                    break;
+                case "TabProlexNet":
+                    color = "Cobalt";
+                    break;
+                case "TabOutrosAjustes":
+                    color = "Green";
+                    break;
+            }
+            var theme = ThemeManager.DetectAppStyle(Application.Current);
+            var accent = ThemeManager.GetAccent(color);
+            ThemeManager.ChangeAppStyle(Application.Current, accent, theme.Item1);
         }
     }
 }
