@@ -120,10 +120,7 @@
                             Checked="CheckTerminal_Checked"
                             Content="Terminal" />
                     </Grid>
-                    <Grid
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        VerticalAlignment="Stretch">
+                    <Grid Grid.Row="1" Grid.Column="0">
                         <StackPanel
                             x:Name="PanelFirebird"
                             Margin="10"
@@ -311,7 +308,8 @@
                                         Grid.Row="1"
                                         Grid.Column="0"
                                         Margin="20"
-                                        Content="Abrir" />
+                                        Content="Abrir"
+                                        Focusable="False" />
                                     <Label
                                         Grid.Row="2"
                                         Grid.Column="0"
@@ -353,7 +351,8 @@
                                         Grid.Row="1"
                                         Grid.Column="0"
                                         Margin="20"
-                                        Content="Abrir" />
+                                        Content="Abrir"
+                                        Focusable="False" />
                                     <Label
                                         Grid.Row="2"
                                         Grid.Column="0"
@@ -375,11 +374,20 @@
 
             <TabItem x:Name="TabOutrosAjustes" Header="Outros Ajustes">
                 <Grid>
-                    <StackPanel>
-                        <WrapPanel
-                            Margin="10"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <GroupBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Header="Correções diversas">
+                        <Grid>
                             <Label
                                 Margin="10,0,5,0"
                                 HorizontalAlignment="Center"
@@ -413,12 +421,98 @@
                                         Grid.Column="1"
                                         Content="Corrigir" />
                                 </Grid>
-
                             </Button>
-                        </WrapPanel>
-                    </StackPanel>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        VerticalAlignment="Stretch"
+                        Header="Pré conversão para o ProlexNet">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Text="1º Passo: Localizar e remover instalações antigas do Firebird" />
+                                <Button
+                                    x:Name="ButtonRemoverFirebird"
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    Click="ButtonRemoverFirebird_Click"
+                                    Content="Remover" />
+                            </Grid>
+                            <Grid Grid.Row="1" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Width="Auto"
+                                    Text="2º Passo: Instalar o Firebird 3" />
+                                <CheckBox
+                                    x:Name="checkboxInstalacaoSilenciosa"
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Left"
+                                    Content="Instalação silenciosa"
+                                    IsChecked="True" />
+                                <Button
+                                    x:Name="ButtonInstalarFirebird"
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Right"
+                                    Click="ButtonInstalarFirebird_Click"
+                                    Content="Download" />
+                                <ProgressBar
+                                    x:Name="progressBar"
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Margin="10" />
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+
+
                 </Grid>
             </TabItem>
+            <Button
+                Width="75"
+                Height="100"
+                Content="Button" />
+            <Button
+                Width="75"
+                Height="100"
+                Content="Button" />
         </TabControl>
 
         <Button

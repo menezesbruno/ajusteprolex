@@ -8,6 +8,9 @@ using System.Reflection;
 using MahApps.Metro.Controls.Dialogs;
 using System.Windows.Input;
 using MahApps.Metro;
+using System.Diagnostics;
+using System.Net;
+using System.Windows.Controls;
 
 namespace AjusteProlex_WPF
 {
@@ -22,8 +25,11 @@ namespace AjusteProlex_WPF
         public string LocalizacaoBancoTDPJ { get; set; }
         public string LocalizacaoInstrumentoEletronico { get; set; }
         public string LocalizacaoSeloEletronico { get; set; }
+        public string DownloadPath { get; set; }
 
         public object Versao = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+        IProgress<DownloadProgressChangedEventArgs> progress;
 
         public MainWindow()
         {
@@ -120,5 +126,97 @@ namespace AjusteProlex_WPF
             var accent = ThemeManager.GetAccent(color);
             ThemeManager.ChangeAppStyle(Application.Current, accent, theme.Item1);
         }
+
+        private void ButtonRemoverFirebird_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var firebird64Path = Directory.GetFiles("C:\\Program Files\\Firebird", "unins000.exe", SearchOption.AllDirectories);
+                if (firebird64Path != null)
+                {
+                    foreach (string path in firebird64Path)
+                    {
+                        {
+                            Process process = new Process();
+                            process.StartInfo.FileName = path;
+                            process.Start();
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Firebird 64 bits não encontrado.");
+            }
+
+            try
+            {
+                var firebird32Path = Directory.GetFiles("C:\\Program Files (x86)\\Firebird", "unins000.exe", SearchOption.AllDirectories);
+                if (firebird32Path != null)
+                {
+                    foreach (string path in firebird32Path)
+                    {
+                        {
+                            Process process = new Process();
+                            process.StartInfo.FileName = path;
+                            process.Start();
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Firebird 32 bits não encontrado.");
+            }
+        }
+
+        private void ButtonInstalarFirebird_Click(object sender, RoutedEventArgs e)
+        {
+            var rootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Automatiza", "Instalador");
+            Directory.CreateDirectory(rootPath);
+
+            string url = "http://ufpr.dl.sourceforge.net/project/firebird/firebird-win64/3.0.2-Release/Firebird-3.0.2.32703_0_x64.exe";
+            var downloadFileName = Path.GetFileName(url);
+            DownloadPath = Path.Combine(rootPath, downloadFileName);
+
+            progress = new Progress<DownloadProgressChangedEventArgs>(args =>
+            {
+                progressBar.Maximum = args.TotalBytesToReceive;
+                progressBar.Value = args.BytesReceived;
+            });
+
+            DownloadFileInBackground(url, DownloadPath);
+        }
+
+        public void InstallFirebird()
+        {
+            var installargsComponents = "/COMPONENTS=" + "ServerComponent";
+            var installargsTaks = " /TASKS=" + "UseSuperServerTask,UseServiceTask,AutoStartTask,MenuGroupTask,CopyFbClientToSysTask,CopyFbClientAsGds32Task,EnableLegacyClientAuth";
+            var installargsSilent = " /SILENT /SP-";
+            Process process = new Process();
+            process.StartInfo.FileName = DownloadPath;
+            process.StartInfo.Arguments = installargsComponents;
+            process.StartInfo.Arguments += installargsTaks;
+            if(checkboxInstalacaoSilenciosa.IsChecked == true)
+                process.StartInfo.Arguments += installargsSilent;
+            
+            process.Start();
+        }
+        public void DownloadFileInBackground(string url, string path)
+        {
+            WebClient client = new WebClient();
+            Uri uri = new Uri(url);
+
+            client.DownloadFileCompleted += (sender, args) => InstallFirebird();
+
+            client.DownloadProgressChanged += (sender, args) =>
+            {
+                progress.Report(args);
+            };
+
+            client.DownloadFileAsync(uri, path);
+        }
+
+
     }
 }
