@@ -11,6 +11,8 @@ using MahApps.Metro;
 using System.Diagnostics;
 using System.Net;
 using System.Windows.Controls;
+using FirebirdSql.Data.FirebirdClient;
+using FirebirdSql.Data.Services;
 
 namespace AjusteProlex_WPF
 {
@@ -127,6 +129,12 @@ namespace AjusteProlex_WPF
             ThemeManager.ChangeAppStyle(Application.Current, accent, theme.Item1);
         }
 
+        private void ButtonRealizarBackup_Click(object sender, RoutedEventArgs e)
+        {
+            var backupWindow = new BackupWindow();
+            backupWindow.Show();
+        }
+
         private void ButtonRemoverFirebird_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -202,6 +210,7 @@ namespace AjusteProlex_WPF
             
             process.Start();
         }
+
         public void DownloadFileInBackground(string url, string path)
         {
             WebClient client = new WebClient();
@@ -216,7 +225,5 @@ namespace AjusteProlex_WPF
 
             client.DownloadFileAsync(uri, path);
         }
-
-
     }
 }
