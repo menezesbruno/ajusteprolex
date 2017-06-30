@@ -15,14 +15,16 @@ namespace AjusteProlex_WPF
     /// <summary>
     /// Interaction logic for BackupWindow.xaml
     /// </summary>
-    public partial class BackupWindow : MetroWindow
+    public partial class RestoreWindow : MetroWindow
     {
-        public BackupWindow()
+        public string DatabaseFile { get; set; }
+
+        public RestoreWindow()
         {
             InitializeComponent();
         }
 
-        private async Task BackupAsync()
+        private async Task RestoreAsync()
         {
             try
             {
@@ -52,30 +54,28 @@ namespace AjusteProlex_WPF
                         {
                             var result = await Task.Run(() =>
                             {
-                                var databaseFile = System.IO.Path.Combine(databasePath, $"{line}.prolexbkp");
-
                                 FbConnectionStringBuilder cs = new FbConnectionStringBuilder();
-
-                                if (line.Equals("Prolex6",StringComparison.InvariantCultureIgnoreCase))
+                                if (line.Equals("Prolex6", StringComparison.InvariantCultureIgnoreCase))
                                 {
-                                    cs.UserID = "sysdba";
-                                    cs.Password = "masterkey";
+                                    DatabaseFile = Directory.GetFiles(databasePath, "Prolex6.prolexbkp").FirstOrDefault();
                                 }
                                 else if (line.Equals("Prolex", StringComparison.InvariantCultureIgnoreCase))
                                 {
-                                    cs.UserID = "prolex";
-                                    cs.Password = "admprolex";
+                                    DatabaseFile = Directory.GetFiles(databasePath, "Prolex.prolexbkp").FirstOrDefault();
                                 }
+                                cs.UserID = "SYSDBA";
+                                cs.Password = "masterkey";
                                 cs.Database = line;
 
-                                FbBackup backupSvc = new FbBackup();
-                                backupSvc.ConnectionString = cs.ToString();
-                                backupSvc.BackupFiles.Add(new FbBackupFile(databaseFile, 2048));
-                                backupSvc.Verbose = true;
-                                backupSvc.Options = FbBackupFlags.IgnoreLimbo;
-                                backupSvc.ServiceOutput += BackupSvc_ServiceOutputAsync;
+                                FbRestore restoreSvc = new FbRestore();
+                                restoreSvc.ConnectionString = cs.ToString();
+                                restoreSvc.BackupFiles.Add(new FbBackupFile(DatabaseFile, 2048));
+                                restoreSvc.Verbose = true;
+                                restoreSvc.PageSize = 4096;
+                                restoreSvc.Options = FbRestoreFlags.Create | FbRestoreFlags.Replace;
+                                restoreSvc.ServiceOutput += RestoreSvc_ServiceOutput;
 
-                                backupSvc.Execute();
+                                restoreSvc.Execute();
                                 return true;
                             });
                             StatusLabel.Content = "";
@@ -83,7 +83,7 @@ namespace AjusteProlex_WPF
 
                             /*
                             var titulo = "Aviso";
-                            var mensagem = $"Backup do banco '{line}' concluído.";
+                            var mensagem = $"Restauração do banco '{line}' concluído.";
                             var botoesConfig = MessageDialogStyle.Affirmative;
                             var dialogoConfig = new MetroDialogSettings()
                             {
@@ -92,14 +92,14 @@ namespace AjusteProlex_WPF
                             await this.ShowMessageAsync(titulo, mensagem, botoesConfig, dialogoConfig);
                             */
 
-                            MessageBox.Show($"Backup do banco '{line}' concluído.", "Aviso", MessageBoxButton.OK,MessageBoxImage.Information);
+                            MessageBox.Show($"Restauração do banco '{line}' concluído.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                         catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message);
                         }
                     }
-                    //MessageBox.Show("Fase do backup concluída","Aviso", MessageBoxButton.OK,MessageBoxImage.Information);
+                    //MessageBox.Show("Fase da restauração concluída","Aviso", MessageBoxButton.OK,MessageBoxImage.Information);
                     Close();
                 }
                 else
@@ -113,19 +113,19 @@ namespace AjusteProlex_WPF
             }
         }
 
-        private void BackupSvc_ServiceOutputAsync(object sender, ServiceOutputEventArgs e)
+        private void RestoreSvc_ServiceOutput(object sender, ServiceOutputEventArgs e)
         {
             Dispatcher.Invoke(() =>
             {
-                StatusLabel.Content = "Backup em andamento, aguarde...";
+                StatusLabel.Content = "Restauração em andamento, aguarde...";
                 progressBar.IsIndeterminate = true;
-                StatusBackup.Content = e.Message;
+                StatusRestauracao.Content = e.Message;
             });
         }
 
-        private void StatusBackup_Loaded(object sender, RoutedEventArgs e)
+        private void StatusRestauracao_Loaded(object sender, RoutedEventArgs e)
         {
-            BackupAsync();      
+            RestoreAsync();
         }
     }
 }

@@ -6,13 +6,10 @@ using System.IO;
 using Microsoft.Win32;
 using System.Reflection;
 using MahApps.Metro.Controls.Dialogs;
-using System.Windows.Input;
 using MahApps.Metro;
 using System.Diagnostics;
 using System.Net;
-using System.Windows.Controls;
-using FirebirdSql.Data.FirebirdClient;
-using FirebirdSql.Data.Services;
+using System.IO.Compression;
 
 namespace AjusteProlex_WPF
 {
@@ -28,6 +25,8 @@ namespace AjusteProlex_WPF
         public string LocalizacaoInstrumentoEletronico { get; set; }
         public string LocalizacaoSeloEletronico { get; set; }
         public string DownloadPath { get; set; }
+        public string DllPath { get; set; }
+        public string UpdatePath { get; set; }
 
         public object Versao = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
@@ -42,7 +41,7 @@ namespace AjusteProlex_WPF
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
-                Filter = "Arquivo Firebird|databases.conf;aliases.conf"
+                Filter = "Arquivo Firebeird|databases.conf;aliases.conf"
             };
             if (openFileDialog.ShowDialog() == true)
             {
@@ -120,19 +119,13 @@ namespace AjusteProlex_WPF
                 case "TabProlexNet":
                     color = "Cobalt";
                     break;
-                case "TabOutrosAjustes":
+                case "TabPreConversao":
                     color = "Green";
                     break;
             }
             var theme = ThemeManager.DetectAppStyle(Application.Current);
             var accent = ThemeManager.GetAccent(color);
             ThemeManager.ChangeAppStyle(Application.Current, accent, theme.Item1);
-        }
-
-        private void ButtonRealizarBackup_Click(object sender, RoutedEventArgs e)
-        {
-            var backupWindow = new BackupWindow();
-            backupWindow.Show();
         }
 
         private void ButtonRemoverFirebird_Click(object sender, RoutedEventArgs e)
@@ -147,6 +140,7 @@ namespace AjusteProlex_WPF
                         {
                             Process process = new Process();
                             process.StartInfo.FileName = path;
+                            process.StartInfo.Arguments = "/CLEAN";
                             process.Start();
                         }
                     }
@@ -154,7 +148,6 @@ namespace AjusteProlex_WPF
             }
             catch
             {
-                MessageBox.Show("Firebird 64 bits não encontrado.");
             }
 
             try
@@ -167,6 +160,7 @@ namespace AjusteProlex_WPF
                         {
                             Process process = new Process();
                             process.StartInfo.FileName = path;
+                            process.StartInfo.Arguments = "/CLEAN";
                             process.Start();
                         }
                     }
@@ -174,7 +168,6 @@ namespace AjusteProlex_WPF
             }
             catch
             {
-                MessageBox.Show("Firebird 32 bits não encontrado.");
             }
         }
 
@@ -198,14 +191,16 @@ namespace AjusteProlex_WPF
 
         public void InstallFirebird()
         {
-            var installargsComponents = "/COMPONENTS=" + "ServerComponent";
-            var installargsTaks = " /TASKS=" + "UseSuperServerTask,UseServiceTask,AutoStartTask,MenuGroupTask,CopyFbClientToSysTask,CopyFbClientAsGds32Task,EnableLegacyClientAuth";
-            var installargsSilent = " /SILENT /SP-";
+            var installargsComponents = "/COMPONENTS=" + "ServerComponent,ClientComponent";
+            var installargsTasks = " /TASKS=" + "UseSuperServerTask,UseServiceTask,AutoStartTask,MenuGroupTask,CopyFbClientToSysTask,CopyFbClientAsGds32Task,EnableLegacyClientAuth";
+            var installargsSecurity = " /SYSDBANAME=" + "SYSDBA" + " /SYSDBAPASSWORD=" + "masterkey";
+            var installargsSilent = " /FORCE /SILENT /SP-";
             Process process = new Process();
             process.StartInfo.FileName = DownloadPath;
             process.StartInfo.Arguments = installargsComponents;
-            process.StartInfo.Arguments += installargsTaks;
-            if(checkboxInstalacaoSilenciosa.IsChecked == true)
+            process.StartInfo.Arguments += installargsTasks;
+            process.StartInfo.Arguments += installargsSecurity;
+            if (checkboxInstalacaoSilenciosa.IsChecked == true)
                 process.StartInfo.Arguments += installargsSilent;
             
             process.Start();
@@ -224,6 +219,24 @@ namespace AjusteProlex_WPF
             };
 
             client.DownloadFileAsync(uri, path);
+        }
+
+        private void ButtonRealizarBackup_Click(object sender, RoutedEventArgs e)
+        {
+            var backupWindow = new BackupWindow();
+            backupWindow.Show();
+        }
+
+        private void ButtonRestaurarBackup_Click(object sender, RoutedEventArgs e)
+        {
+            var restoreWindow = new RestoreWindow();
+            restoreWindow.Show();
+        }
+
+        private void ButtonAtualizarDLLs_Click(object sender, RoutedEventArgs e)
+        {
+            var updatedllsWindow = new UpdateDllsWindow();
+            updatedllsWindow.Show();
         }
     }
 }

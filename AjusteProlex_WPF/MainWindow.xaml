@@ -387,7 +387,7 @@
                 <Grid />
             </TabItem>
 
-            <TabItem x:Name="TabOutrosAjustes" Header="Outros Ajustes">
+            <TabItem x:Name="TabPreConversao" Header="Pré-Conversão">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
@@ -395,49 +395,7 @@
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-
-                    <GroupBox
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Header="Correções diversas">
-                        <Grid>
-                            <Label
-                                Margin="10,0,5,0"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
-                                Content="Limpar e corrigir registro do Windows" />
-                            <Button
-                                Margin="5,0,10,0"
-                                Padding="0"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Focusable="False"
-                                Style="{StaticResource ButtonStyle}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Image
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Width="24"
-                                        Height="24"
-                                        Source="Resources/icons8-Registry Editor-48.png"
-                                        Stretch="UniformToFill" />
-                                    <Label
-                                        Grid.Row="0"
-                                        Grid.Column="1"
-                                        Content="Corrigir" />
-                                </Grid>
-                            </Button>
-                        </Grid>
-                    </GroupBox>
 
                     <GroupBox
                         Grid.Row="0"
@@ -447,9 +405,11 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
@@ -590,7 +550,38 @@
                                     <TextBlock
                                         Grid.Row="0"
                                         Grid.Column="0"
-                                        Text="4º Passo: Restaurar o Backup do banco de dados" />
+                                        Text="4º Passo: Recriar os Aliases" />
+                                    <Button
+                                        x:Name="ButtonRestaurarAliases"
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Bottom"
+                                        Content="Recriar"
+                                        Style="{StaticResource ButtonStyle}" />
+                                </Grid>
+                            </Border>
+                            <Border
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                Margin="5"
+                                Padding="5"
+                                BorderBrush="{DynamicResource AccentColorBrush}"
+                                BorderThickness="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Text="5º Passo: Restaurar o Backup do banco de dados" />
                                     <Button
                                         x:Name="ButtonRestaurarBackup"
                                         Grid.Row="1"
@@ -598,6 +589,39 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
                                         Content="Restaurar"
+                                        Style="{StaticResource ButtonStyle}" />
+                                </Grid>
+                            </Border>
+
+                            <Border
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="5"
+                                Padding="5"
+                                BorderBrush="{DynamicResource AccentColorBrush}"
+                                BorderThickness="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Text="6º Passo: Atualizar as DLLs" />
+                                    <Button
+                                        x:Name="ButtonAtualizarDLLs"
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Bottom"
+                                        Click="ButtonAtualizarDLLs_Click"
+                                        Content="Atualizar"
                                         Style="{StaticResource ButtonStyle}" />
                                 </Grid>
                             </Border>
