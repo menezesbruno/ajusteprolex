@@ -17,26 +17,24 @@ namespace AjusteProlex_WPF
     /// </summary>
     public partial class BackupWindow : MetroWindow
     {
-        public BackupWindow()
+        public string NewFbConf { get; set; }
+        public string ServicePath { get; set; }
+
+        public BackupWindow(string newFbConf, string servicePath)
         {
             InitializeComponent();
+            NewFbConf = newFbConf;
+            ServicePath = servicePath;
         }
 
         private async Task BackupAsync()
         {
             try
             {
-                var databasePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Automatiza", "Instalador");
-                Directory.CreateDirectory(databasePath);
-
-                OpenFileDialog openFileDialog = new OpenFileDialog()
-                {
-                    Filter = "Arquivo Firebird|databases.conf;aliases.conf"
-                };
-                if (openFileDialog.ShowDialog() == true)
+                if (NewFbConf != null)
                 {
                     List<string> aliases = new List<string>();
-                    var firebirdConf = File.ReadAllLines(openFileDialog.FileName);
+                    var firebirdConf = File.ReadAllLines(NewFbConf);
 
                     foreach (string line in firebirdConf)
                     {
@@ -52,7 +50,7 @@ namespace AjusteProlex_WPF
                         {
                             var result = await Task.Run(() =>
                             {
-                                var databaseFile = System.IO.Path.Combine(databasePath, $"{line}.prolexbkp");
+                                var databaseFile = Path.Combine(ServicePath, $"{line}.prolexbkp");
 
                                 FbConnectionStringBuilder cs = new FbConnectionStringBuilder();
 
@@ -63,8 +61,8 @@ namespace AjusteProlex_WPF
                                 }
                                 else if (line.Equals("Prolex", StringComparison.InvariantCultureIgnoreCase))
                                 {
-                                    cs.UserID = "prolex";
-                                    cs.Password = "admprolex";
+                                    cs.UserID = "sysdba";
+                                    cs.Password = "masterkey";
                                 }
                                 cs.Database = line;
 
@@ -81,17 +79,6 @@ namespace AjusteProlex_WPF
                             StatusLabel.Content = "";
                             progressBar.IsIndeterminate = false;
 
-                            /*
-                            var titulo = "Aviso";
-                            var mensagem = $"Backup do banco '{line}' concluído.";
-                            var botoesConfig = MessageDialogStyle.Affirmative;
-                            var dialogoConfig = new MetroDialogSettings()
-                            {
-                                AffirmativeButtonText = "OK"
-                            };
-                            await this.ShowMessageAsync(titulo, mensagem, botoesConfig, dialogoConfig);
-                            */
-
                             MessageBox.Show($"Backup do banco '{line}' concluído.", "Aviso", MessageBoxButton.OK,MessageBoxImage.Information);
                         }
                         catch (Exception ex)
@@ -99,7 +86,6 @@ namespace AjusteProlex_WPF
                             MessageBox.Show(ex.Message);
                         }
                     }
-                    //MessageBox.Show("Fase do backup concluída","Aviso", MessageBoxButton.OK,MessageBoxImage.Information);
                     Close();
                 }
                 else

@@ -220,7 +220,7 @@ namespace AjusteProlex_WPF
             if (openFileDialog.ShowDialog() == true)
             {
                 ProlexPath = Path.GetDirectoryName(openFileDialog.FileName);
-                UrlPath = @"https://automatizasuporteftp.azurewebsites.net/files/prolexrtd/Debug.zip";
+                UrlPath = @"https://automatizabox.azurewebsites.net/uploads/Debug.zip";
                 DownloadDLLs();
             }
         }

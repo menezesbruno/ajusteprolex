@@ -91,7 +91,6 @@ namespace AjusteProlex_WPF
                             };
                             await this.ShowMessageAsync(titulo, mensagem, botoesConfig, dialogoConfig);
                             */
-
                             MessageBox.Show($"Restauração do banco '{line}' concluído.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                         catch (Exception ex)

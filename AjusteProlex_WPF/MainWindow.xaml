@@ -517,8 +517,9 @@
                                         x:Name="ButtonInstalarFirebird"
                                         Grid.Row="1"
                                         Grid.Column="0"
+                                        Margin="122,0"
                                         HorizontalAlignment="Center"
-                                        VerticalAlignment="Bottom"
+                                        VerticalAlignment="Top"
                                         Click="ButtonInstalarFirebird_Click"
                                         Content="Download"
                                         Style="{StaticResource ButtonStyle}" />
@@ -557,10 +558,12 @@
                                         Grid.Column="0"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
+                                        Click="ButtonRestaurarAliases_Click"
                                         Content="Recriar"
                                         Style="{StaticResource ButtonStyle}" />
                                 </Grid>
                             </Border>
+
                             <Border
                                 Grid.Row="4"
                                 Grid.Column="0"
@@ -588,6 +591,7 @@
                                         Grid.Column="0"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
+                                        Click="ButtonRestaurarBackup_Click"
                                         Content="Restaurar"
                                         Style="{StaticResource ButtonStyle}" />
                                 </Grid>
