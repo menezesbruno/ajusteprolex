@@ -9,7 +9,9 @@
     Width="800"
     Height="600"
     GlowBrush="{DynamicResource AccentColorBrush}"
-    Icon="icone.ico"
+    Icon="/Resources/icone.ico"
+    ResizeMode="CanMinimize"
+    ShowMaxRestoreButton="False"
     TitleCaps="False"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -18,7 +20,6 @@
             <Setter Property="Height" Value="26" />
             <Setter Property="Width" Value="96" />
             <Setter Property="Focusable" Value="False" />
-            <!--<Setter Property="Margin" Value="10"/>-->
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
         </Style>
@@ -32,7 +33,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0">
@@ -98,7 +98,7 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             AutomationProperties.HelpText="Servidor"
-                            Source="Resources/icons8-Workstation-48.png"
+                            Source="Resources/icon-server-48px.png"
                             Stretch="UniformToFill" />
                         <RadioButton
                             x:Name="CheckServidor"
@@ -119,7 +119,7 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             AutomationProperties.HelpText="Terminal"
-                            Source="Resources/icons8-Under Computer-48.png"
+                            Source="Resources/icon-client-48px.png"
                             Stretch="UniformToFill" />
                         <RadioButton
                             x:Name="CheckTerminal"
@@ -150,30 +150,9 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Top"
                                 Click="BtnAbrirArqFirebird_Click"
+                                Content="Abrir"
                                 Focusable="False"
-                                Style="{StaticResource ButtonStyle}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Image
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Width="24"
-                                        Height="24"
-                                        Source="Resources/icons8-Open-48.png"
-                                        Stretch="UniformToFill" />
-                                    <Label
-                                        Grid.Row="0"
-                                        Grid.Column="1"
-                                        Content="Abrir" />
-                                </Grid>
-
-                            </Button>
+                                Style="{StaticResource ButtonStyle}" />
                             <Label
                                 x:Name="labelLocalizacaoArqFirebird"
                                 Margin="0,10,0,0"
@@ -412,11 +391,10 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
                             <Border
+                                x:Name="passo1"
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 Margin="5"
@@ -433,11 +411,29 @@
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Width="Auto"
-                                        Text="1º Passo: Realizar o Backup do banco de dados" />
+                                    <Grid Grid.Row="0" Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Width="Auto"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Text="1º Passo: Realizar o Backup do banco de dados" />
+
+                                        <Image
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            HorizontalAlignment="Left"
+                                            Source="Resources\icon-backup-100px.png"
+                                            Stretch="Uniform" />
+                                    </Grid>
                                     <Button
                                         x:Name="ButtonRealizarBackup"
                                         Grid.Row="1"
@@ -451,6 +447,7 @@
                             </Border>
 
                             <Border
+                                x:Name="passo2"
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 Margin="5"
@@ -463,6 +460,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
@@ -471,9 +469,15 @@
                                         Grid.Row="0"
                                         Grid.Column="0"
                                         Text="2º Passo: Localizar e remover instalações antigas do Firebird" />
+                                    <Image
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Left"
+                                        Source="Resources\icon-delete-100px.png"
+                                        Stretch="Uniform" />
                                     <Button
                                         x:Name="ButtonRemoverFirebird"
-                                        Grid.Row="1"
+                                        Grid.Row="2"
                                         Grid.Column="0"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
@@ -484,6 +488,7 @@
                             </Border>
 
                             <Border
+                                x:Name="passo3"
                                 Grid.Row="2"
                                 Grid.Column="0"
                                 Margin="5"
@@ -496,26 +501,32 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
                                     <TextBlock
                                         Grid.Row="0"
-                                        Grid.Column="0"
+                                        Grid.Column="1"
                                         Width="Auto"
                                         Text="3º Passo: Instalar o Firebird 3" />
-                                    <CheckBox
-                                        x:Name="checkboxInstalacaoSilenciosa"
+                                    <Image
                                         Grid.Row="1"
                                         Grid.Column="0"
                                         HorizontalAlignment="Left"
-                                        Content="Automática"
+                                        Source="Resources\icon-install-100px.png"
+                                        Stretch="Uniform" />
+                                    <CheckBox
+                                        x:Name="checkboxSilentInstallation"
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Left"
+                                        Content="Silenciosa"
                                         IsChecked="True" />
                                     <Button
                                         x:Name="ButtonInstalarFirebird"
-                                        Grid.Row="1"
+                                        Grid.Row="2"
                                         Grid.Column="0"
                                         Margin="122,0"
                                         HorizontalAlignment="Center"
@@ -523,81 +534,11 @@
                                         Click="ButtonInstalarFirebird_Click"
                                         Content="Download"
                                         Style="{StaticResource ButtonStyle}" />
-                                    <ProgressBar
-                                        x:Name="progressBar"
-                                        Grid.Row="2"
-                                        Grid.Column="0"
-                                        Margin="5" />
                                 </Grid>
                             </Border>
 
                             <Border
-                                Grid.Row="3"
-                                Grid.Column="0"
-                                Margin="5"
-                                Padding="5"
-                                BorderBrush="{DynamicResource AccentColorBrush}"
-                                BorderThickness="1">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Text="4º Passo: Recriar os Aliases" />
-                                    <Button
-                                        x:Name="ButtonRestaurarAliases"
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Bottom"
-                                        Click="ButtonRestaurarAliases_Click"
-                                        Content="Recriar"
-                                        Style="{StaticResource ButtonStyle}" />
-                                </Grid>
-                            </Border>
-
-                            <Border
-                                Grid.Row="4"
-                                Grid.Column="0"
-                                Margin="5"
-                                Padding="5"
-                                BorderBrush="{DynamicResource AccentColorBrush}"
-                                BorderThickness="1">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Text="5º Passo: Restaurar o Backup do banco de dados" />
-                                    <Button
-                                        x:Name="ButtonRestaurarBackup"
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Bottom"
-                                        Click="ButtonRestaurarBackup_Click"
-                                        Content="Restaurar"
-                                        Style="{StaticResource ButtonStyle}" />
-                                </Grid>
-                            </Border>
-
-                            <Border
+                                x:Name="passo4"
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 Margin="5"
@@ -610,6 +551,89 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Text="4º Passo: Recriar os Aliases" />
+                                    <Image
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Left"
+                                        Source="Resources\icon-alias-100px.png"
+                                        Stretch="Uniform" />
+                                    <Button
+                                        x:Name="ButtonRestaurarAliases"
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Bottom"
+                                        Click="ButtonRestaurarAliases_Click"
+                                        Content="Recriar"
+                                        Style="{StaticResource ButtonStyle}" />
+                                </Grid>
+                            </Border>
+
+                            <Border
+                                x:Name="passo5"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="5"
+                                Padding="5"
+                                BorderBrush="{DynamicResource AccentColorBrush}"
+                                BorderThickness="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Text="5º Passo: Restaurar o Backup do banco de dados" />
+                                    <Image
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Left"
+                                        Source="Resources\icon-restore-100px.png"
+                                        Stretch="Uniform" />
+                                    <Button
+                                        x:Name="ButtonRestaurarBackup"
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Bottom"
+                                        Click="ButtonRestaurarBackup_Click"
+                                        Content="Restaurar"
+                                        Style="{StaticResource ButtonStyle}" />
+                                </Grid>
+                            </Border>
+
+                            <Border
+                                x:Name="passo6"
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Margin="5"
+                                Padding="5"
+                                BorderBrush="{DynamicResource AccentColorBrush}"
+                                BorderThickness="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
@@ -618,9 +642,15 @@
                                         Grid.Row="0"
                                         Grid.Column="0"
                                         Text="6º Passo: Atualizar as DLLs" />
+                                    <Image
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Left"
+                                        Source="Resources\icon-download-100px.png"
+                                        Stretch="Uniform" />
                                     <Button
                                         x:Name="ButtonAtualizarDLLs"
-                                        Grid.Row="1"
+                                        Grid.Row="2"
                                         Grid.Column="0"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Bottom"
@@ -634,38 +664,5 @@
                 </Grid>
             </TabItem>
         </TabControl>
-
-        <Button
-            x:Name="buttonSalvar"
-            Grid.Row="2"
-            Grid.Column="0"
-            Padding="0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            Click="ButtonSalvar_Click"
-            Focusable="False"
-            Style="{StaticResource ButtonStyle}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
-                <Image
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Width="24"
-                    Height="24"
-                    Source="Resources/icons8-Save-48.png"
-                    Stretch="UniformToFill" />
-                <Label
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Content="Salvar" />
-            </Grid>
-        </Button>
     </Grid>
 </Controls:MetroWindow>

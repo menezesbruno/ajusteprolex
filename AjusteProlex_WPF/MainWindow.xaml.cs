@@ -32,8 +32,6 @@ namespace AjusteProlex_WPF
 
         public object Versao = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-        IProgress<DownloadProgressChangedEventArgs> progress;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -82,6 +80,12 @@ namespace AjusteProlex_WPF
             PanelFirebird.IsEnabled = true;
             labelLocalizacaoArqFirebird.Content = file;
             TextBlockFirebird.Text = File.ReadAllText(file);
+            passo1.IsEnabled = true;
+            passo2.IsEnabled = true;
+            passo3.IsEnabled = true;
+            passo4.IsEnabled = true;
+            passo5.IsEnabled = true;
+            passo6.IsEnabled = true;
         }
 
         private void CheckTerminal_Checked(object sender, RoutedEventArgs e)
@@ -89,6 +93,12 @@ namespace AjusteProlex_WPF
             PanelFirebird.IsEnabled = false;
             labelLocalizacaoArqFirebird.Content = "";
             TextBlockFirebird.Text = "";
+            passo1.IsEnabled = false;
+            passo2.IsEnabled = true;
+            passo3.IsEnabled = true;
+            passo4.IsEnabled = false;
+            passo5.IsEnabled = false;
+            passo6.IsEnabled = true;
         }
 
         private void ButtonSalvar_Click(object sender, RoutedEventArgs e)
@@ -171,127 +181,6 @@ namespace AjusteProlex_WPF
             }
         }
 
-        private void ButtonInstalarFirebird_Click(object sender, RoutedEventArgs e)
-        {
-            var url = "https://ufpr.dl.sourceforge.net/project/firebird/firebird-win32/3.0.2-Release/Firebird-3.0.2.32703_0_Win32.exe";
-            var systemType = Environment.Is64BitOperatingSystem;
-            if (systemType)
-            {
-                url = "http://ufpr.dl.sourceforge.net/project/firebird/firebird-win64/3.0.2-Release/Firebird-3.0.2.32703_0_x64.exe";
-            }
-
-            var downloadFileName = Path.GetFileName(url);
-            DownloadPath = Path.Combine(ServicePath, downloadFileName);
-
-            var fbInstaller = Path.Combine(ServicePath, downloadFileName);
-            if (File.Exists(fbInstaller))
-            {
-                HashCheck();
-            }
-             
-            progress = new Progress<DownloadProgressChangedEventArgs>(args =>
-            {
-                progressBar.Maximum = args.TotalBytesToReceive;
-                progressBar.Value = args.BytesReceived;
-            });
-
-            DownloadFileInBackground(url, DownloadPath);
-            
-        }
-
-        public void InstallFirebird()
-        {
-            var installargsComponents = "/COMPONENTS=" + @"""ServerComponent,DevAdminComponent,ClientComponent""";
-            var installargsTasks = " /TASKS=" + @"""UseSuperServerTask,UseServiceTask,AutoStartTask,MenuGroupTask,CopyFbClientToSysTask,CopyFbClientAsGds32Task,EnableLegacyClientAuth"""; //InstallCPLAppletTask
-            var installargsSecurity = " /SYSDBAPASSWORD=masterkey";
-            var installargsSilent = " /FORCE /SILENT /SP-";
-            Process process = new Process();
-            process.StartInfo.FileName = DownloadPath;
-            process.StartInfo.Arguments = installargsComponents;
-            process.StartInfo.Arguments += installargsTasks;
-            process.StartInfo.Arguments += installargsSecurity;
-            if (checkboxInstalacaoSilenciosa.IsChecked == true)
-            {
-                process.StartInfo.Arguments += installargsSilent;
-            }
-            
-            process.Start();
-        }
-
-        public void HashCheck()
-        {
-            string origin = "4302570b19bf9c313ec9182702df6683";
-            if (Path.GetFileName(DownloadPath) == "Firebird-3.0.2.32703_0_x64.exe")
-            {
-                origin = "059789514590bb351506c5721e3932d8";
-            }
-
-            string source = DownloadPath;
-            using (MD5 md5Hash = MD5.Create())
-            {
-                string hash = GetMd5FileHash(md5Hash, source);
-
-                if (VerifyMd5Hash(md5Hash, source, origin))
-                    InstallFirebird();
-                else
-                    MessageBox.Show("O arquivo baixado não passou no teste. Por favor, faça o download novamente.");
-            }
-        }
-
-        static string GetMd5FileHash(MD5 md5Hash, string input)
-        {
-            byte[] data = md5Hash.ComputeHash(File.ReadAllBytes(input));
-
-            StringBuilder sBuilder = new StringBuilder();
-            for (int i = 0; i < data.Length; i++)
-                sBuilder.Append(data[i].ToString("x2"));
-
-            return sBuilder.ToString();
-        }
-
-        static string GetMd5Hash(MD5 md5Hash, string input)
-        {
-            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-
-            StringBuilder sBuilder = new StringBuilder();
-
-            for (int i = 0; i < data.Length; i++)
-                sBuilder.Append(data[i].ToString("x2"));
-
-            return sBuilder.ToString();
-        }
-
-        static bool VerifyMd5Hash(MD5 md5Hash, string input, string hash)
-        {
-            string hashOfInput = GetMd5FileHash(md5Hash, input);
-
-            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
-
-            if (0 == comparer.Compare(hashOfInput, hash))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public void DownloadFileInBackground(string url, string path)
-        {
-            WebClient client = new WebClient();
-            Uri uri = new Uri(url);
-
-            client.DownloadFileCompleted += (sender, args) => HashCheck();
-
-            client.DownloadProgressChanged += (sender, args) =>
-            {
-                progress.Report(args);
-            };
-
-            client.DownloadFileAsync(uri, path);
-        }
-
         private void ButtonRealizarBackup_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
@@ -302,20 +191,20 @@ namespace AjusteProlex_WPF
             {
                 var newFbConf = Path.GetFullPath(openFileDialog.FileName);
                 var backupWindow = new BackupWindow(newFbConf, ServicePath);
-                backupWindow.Show();
+                backupWindow.ShowDialog();
             }
         }
 
         private void ButtonRestaurarBackup_Click(object sender, RoutedEventArgs e)
         {
             var restoreWindow = new RestoreWindow();
-            restoreWindow.Show();
+            restoreWindow.ShowDialog();
         }
 
         private void ButtonAtualizarDLLs_Click(object sender, RoutedEventArgs e)
         {
             var updatedllsWindow = new UpdateDllsWindow();
-            updatedllsWindow.Show();
+            updatedllsWindow.ShowDialog();
         }
 
         private void ButtonRestaurarAliases_Click(object sender, RoutedEventArgs e)
@@ -368,6 +257,13 @@ namespace AjusteProlex_WPF
                     writer.WriteLine(@"Prolex C:\Automatiza\Banco de Dados\Prolex.prolex");
                 }
             }
+        }
+
+        private void ButtonInstalarFirebird_Click(object sender, RoutedEventArgs e)
+        {
+            var silentInstallation = checkboxSilentInstallation.IsChecked == true;
+            var download = new Download.Download();
+            download.FirebirdDownload(ServicePath, silentInstallation);
         }
     }
 }

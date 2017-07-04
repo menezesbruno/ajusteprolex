@@ -32,14 +32,14 @@ namespace AjusteProlex_WPF
             InitializeComponent();
         }
 
-        public void DownloadFileInBackground(string url, string path)
+        public void DownloadFileInBackground(string updatedSystem, string url, string path)
         {
             try
             {
                 WebClient client = new WebClient();
                 Uri uri = new Uri(url);
 
-                client.DownloadFileCompleted += (sender, args) => UpdateDLLs();
+                client.DownloadFileCompleted += (sender, args) => UpdateDLLs(updatedSystem);
 
                 client.DownloadProgressChanged += (sender, args) =>
                 {
@@ -54,7 +54,7 @@ namespace AjusteProlex_WPF
             }
         }
 
-        public void DownloadDLLs()
+        public void DownloadDLLs(string updatedSystem, string urlPath, string prolexPath)
         {
             RootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Automatiza", "Instalador");
             Directory.CreateDirectory(RootPath);
@@ -76,7 +76,7 @@ namespace AjusteProlex_WPF
                 progressBar.Value = args.BytesReceived;
             });
 
-            DownloadFileInBackground(UrlPath, DownloadPath);
+            DownloadFileInBackground(updatedSystem, UrlPath, DownloadPath);
         }
 
         /*
@@ -175,7 +175,7 @@ namespace AjusteProlex_WPF
             Directory.Move(ProlexPath, backupDateTime);
         }
 
-        public void UpdateDLLs()
+        public void UpdateDLLs(string updatedSystem)
         {
             try
             {
@@ -190,6 +190,7 @@ namespace AjusteProlex_WPF
                 var directoryFileName = Path.GetFileNameWithoutExtension(DownloadPath);
                 var directoryToMove = Path.Combine(RootPath, directoryFileName);
                 Directory.Move(directoryToMove, ProlexPath);
+                MessageBox.Show($"Atualização das DLLs do Prolex {updatedSystem} com sucesso.", "Aviso!", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -205,9 +206,10 @@ namespace AjusteProlex_WPF
             };
             if (openFileDialog.ShowDialog() == true)
             {
+                var updatedSystem = "Protesto";
                 ProlexPath = Path.GetDirectoryName(openFileDialog.FileName);
                 UrlPath = @"";
-                DownloadDLLs();
+                DownloadDLLs(updatedSystem, UrlPath, ProlexPath);
             }
         }
 
@@ -219,9 +221,10 @@ namespace AjusteProlex_WPF
             };
             if (openFileDialog.ShowDialog() == true)
             {
+                var updatedSystem = "TDPJ";
                 ProlexPath = Path.GetDirectoryName(openFileDialog.FileName);
                 UrlPath = @"https://automatizabox.azurewebsites.net/uploads/Debug.zip";
-                DownloadDLLs();
+                DownloadDLLs(updatedSystem, UrlPath, ProlexPath);
             }
         }
     }
