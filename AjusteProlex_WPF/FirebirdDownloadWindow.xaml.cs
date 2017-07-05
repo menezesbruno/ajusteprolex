@@ -7,9 +7,9 @@ namespace AjusteProlex_WPF
     /// <summary>
     /// Interaction logic for DownloadWindow.xaml
     /// </summary>
-    public partial class DownloadWindow : MetroWindow
+    public partial class FirebirdDownloadWindow : MetroWindow
     {
-        public DownloadWindow(string servicePath)
+        public FirebirdDownloadWindow(string servicePath)
         {
             InitializeComponent();
         }

@@ -1,32 +1,24 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Windows;
+using System.Threading.Tasks;
 
 namespace AjusteProlex_WPF.Download
 {
     public class Download
     {
-        public bool SilentInstallation { get; set; }
-        public string ServicePath { get; set; }
-        public string DownloadedFile { get; set; }
-        public string OriginalHash { get; set; }
-
-        // Link para o Firebird 3 x86 e seu verificador MD5
-        public string Url_X86 = "https://ufpr.dl.sourceforge.net/project/firebird/firebird-win32/3.0.2-Release/Firebird-3.0.2.32703_0_Win32.exe";
-        public string OriginalHash_X86 = "4302570b19bf9c313ec9182702df6683";
-
-        // Link para o Firebird 3 x64 e seu verificador MD5
-        public string Url_X64 = "http://ufpr.dl.sourceforge.net/project/firebird/firebird-win64/3.0.2-Release/Firebird-3.0.2.32703_0_x64.exe";
-        public string OriginalHash_X64 = "059789514590bb351506c5721e3932d8";
-        
         IProgress<DownloadProgressChangedEventArgs> Progress;
-        DownloadWindow DownloadWindow;
 
-        public void FirebirdDownload(string servicePath, bool silentInstallation)
+        public async Task FirebirdDownloadAsync(string servicePath, bool silentInstallation)
         {
-            DownloadWindow = new DownloadWindow(ServicePath);
+            FirebirdDownloadWindow DownloadWindow;
+            var firebird_Url_X86 = DownloadParameters.Instance.Firebird_Url_X86;
+            var firebird_Hash_X86 = DownloadParameters.Instance.Firebird_Hash_X86;
+            var firebird_Url_X64 = DownloadParameters.Instance.Firebird_Url_X64;
+            var firebird_Hash_X64 = DownloadParameters.Instance.Firebird_Hash_X64;
+
+            DownloadWindow = new FirebirdDownloadWindow(servicePath);
             var progress = new Progress<DownloadProgressChangedEventArgs>(args =>
             {
                 DownloadWindow.progressBar.Maximum = args.TotalBytesToReceive;
@@ -35,73 +27,93 @@ namespace AjusteProlex_WPF.Download
 
             DownloadWindow.Show();
 
-            ServicePath = servicePath;
-            SilentInstallation = silentInstallation;
             Progress = progress;
-            var url = Url_X86;
-            OriginalHash = OriginalHash_X86;
 
+            var url = firebird_Url_X86;
+            var hash = firebird_Hash_X86;
             var systemType = Environment.Is64BitOperatingSystem;
             if (systemType)
             {
-                url = Url_X64;
-                OriginalHash = OriginalHash_X64;
+                url = firebird_Url_X64;
+                hash = firebird_Hash_X64;
             }
 
             var downloadFileName = Path.GetFileName(url);
-            DownloadedFile = Path.Combine(ServicePath, downloadFileName);
-            if (File.Exists(DownloadedFile))
+            var path = Path.Combine(servicePath, downloadFileName);
+
+            if (File.Exists(path))
             {
-                if (HashCheck.Check(DownloadedFile, OriginalHash))
+                if (HashCheck.Check(path, hash))
                 {
-                    MessageBox.Show($"O {downloadFileName} foi localizado e está pronto para ser instalado.", "Aviso!", MessageBoxButton.OK, MessageBoxImage.Information);
-                    InstallFirebird();
+                    MessageBox.Show($"O {downloadFileName} ", "Aviso!", MessageBoxButton.OK, MessageBoxImage.Information);
+                    FirebirdInstallation.InstallFirebird(silentInstallation, path);
                 }
                 else
                 {
                     MessageBox.Show($"O arquivo {downloadFileName} anteriormente baixado não passou no teste. Um novo download será feito.", "Aviso!", MessageBoxButton.OK, MessageBoxImage.Information);
-                    DownloadFileInBackground(url, DownloadedFile);
+                    await DownloadFileInBackgroundAsync(url, path, hash);
+                    FirebirdInstallation.InstallFirebird(silentInstallation, path);
                 }
             }
             else
-                DownloadFileInBackground(url, DownloadedFile);
+            {
+                await DownloadFileInBackgroundAsync(url, path, hash);
+                FirebirdInstallation.InstallFirebird(silentInstallation, path);
+            }
         }
 
-        public void InstallFirebird()
+        public async Task ProlexDownloadAsync(string servicePath)
         {
-            var installargsComponents = "/COMPONENTS=" + @"""ServerComponent,DevAdminComponent,ClientComponent""";
-            var installargsTasks = " /TASKS=" + @"""UseSuperServerTask,UseServiceTask,AutoStartTask,MenuGroupTask,CopyFbClientToSysTask,CopyFbClientAsGds32Task,EnableLegacyClientAuth"""; //InstallCPLAppletTask
-            var installargsSecurity = " /SYSDBAPASSWORD=masterkey";
-            var installargsSilent = " /FORCE /SILENT /SP-";
+            async Task Prolex6()
+            {
+            var url = DownloadParameters.Instance.Prolex6_Url;
+            var hash = DownloadParameters.Instance.Prolex6_Hash;
+            var downloadFileName = Path.GetFileName(url);
+            var path = Path.Combine(servicePath, downloadFileName);
+            await DownloadFileInBackgroundAsync(url, path, hash);
+            }
 
-            Process process = new Process();
-            process.StartInfo.FileName = DownloadedFile;
-            process.StartInfo.Arguments = installargsComponents;
-            process.StartInfo.Arguments += installargsTasks;
-            process.StartInfo.Arguments += installargsSecurity;
-            if (SilentInstallation)
-                process.StartInfo.Arguments += installargsSilent;
+            async Task ProlexTDPJ()
+            {
+            var url = DownloadParameters.Instance.ProlexTDPJ_Url;
+            var hash = DownloadParameters.Instance.ProlexTDPJ_Hash;
+            var downloadFileName = Path.GetFileName(url);
+            var path = Path.Combine(servicePath, downloadFileName);
+            await DownloadFileInBackgroundAsync(url, path, hash);
+            }
 
-            process.Start();
-            DownloadWindow.Close();
+            async Task ProlexNet()
+            {
+            var url = DownloadParameters.Instance.ProlexNet_Url;
+            var hash = DownloadParameters.Instance.ProlexNet_Hash;
+            var downloadFileName = Path.GetFileName(url);
+            var path = Path.Combine(servicePath, downloadFileName);
+            await DownloadFileInBackgroundAsync(url, path, hash);
+            }
         }
-
-        public void DownloadFileInBackground(string url, string path)
+        public async Task DownloadFileInBackgroundAsync(string url, string path, string hash)
         {
             WebClient client = new WebClient();
-            Uri uri = new Uri(url);
 
-            client.DownloadFileCompleted += (sender, args) =>
+            client.DownloadFileCompleted += async (sender, args) =>
             {
-                if (HashCheck.Check(DownloadedFile, OriginalHash))
+                var downloadFileName = Path.GetFileName(url);
+                if (HashCheck.Check(path, hash))
                 {
-                    var downloadFileName = Path.GetFileName(DownloadedFile);
-                    MessageBox.Show($"Download do {downloadFileName} concluído sem erros.", "Aviso!", MessageBoxButton.OK, MessageBoxImage.Information);
-                    InstallFirebird();
+                    MessageBox.Show($"O download do {downloadFileName} foi concluído sem erros.", "Aviso!", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                else
+                {
+                    var downloadError = MessageBox.Show($"O download do {downloadFileName} está corrompido ou o Hash MD5 fornecido pelo arquivo Json não confere. Deseja tentar fazer novamente o download?", "Erro!", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                    if (downloadError.Equals(MessageBoxResult.Yes))
+                        await DownloadFileInBackgroundAsync(url, path, hash);
+                    else
+                        return;
                 }
             };
             client.DownloadProgressChanged += (sender, args) => Progress.Report(args);
-            client.DownloadFileAsync(uri, path);
+            await client.DownloadFileTaskAsync(url, path);
         }
     }
 }

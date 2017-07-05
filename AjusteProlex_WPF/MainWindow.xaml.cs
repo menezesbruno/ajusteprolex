@@ -203,7 +203,7 @@ namespace AjusteProlex_WPF
 
         private void ButtonAtualizarDLLs_Click(object sender, RoutedEventArgs e)
         {
-            var updatedllsWindow = new UpdateDllsWindow();
+            var updatedllsWindow = new ProlexDownloadWindow();
             updatedllsWindow.ShowDialog();
         }
 
@@ -263,7 +263,7 @@ namespace AjusteProlex_WPF
         {
             var silentInstallation = checkboxSilentInstallation.IsChecked == true;
             var download = new Download.Download();
-            download.FirebirdDownload(ServicePath, silentInstallation);
+            download.FirebirdDownloadAsync(ServicePath, silentInstallation);
         }
     }
 }

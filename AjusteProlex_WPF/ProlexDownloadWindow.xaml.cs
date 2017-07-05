@@ -17,7 +17,7 @@ namespace AjusteProlex_WPF
     /// <summary>
     /// Interaction logic for UpdateDllsWindow.xaml
     /// </summary>
-    public partial class UpdateDllsWindow : MetroWindow
+    public partial class ProlexDownloadWindow : MetroWindow
     {
         public string ProlexPath { get; set; }
         public string AutomatizaPath { get; set; }
@@ -27,7 +27,7 @@ namespace AjusteProlex_WPF
 
         IProgress<DownloadProgressChangedEventArgs> progress;
 
-        public UpdateDllsWindow()
+        public ProlexDownloadWindow()
         {
             InitializeComponent();
         }
@@ -78,75 +78,6 @@ namespace AjusteProlex_WPF
 
             DownloadFileInBackground(updatedSystem, UrlPath, DownloadPath);
         }
-
-        /*
-        public void Backup()
-        {
-            var backupFolder = Path.Combine(RootPath, "BACKUP");
-            Directory.CreateDirectory(backupFolder);
-            var archiveName = "Backup.zip";
-
-            List<string> exceptions = new List<string>();
-            exceptions.Add(@"\Dados");
-
-            int filesAdded = CreateArchive(backupFolder, exceptions, archiveName);
-        }
-
-        public static int CreateArchive(string folder, IList<string> exceptions, string archiveName)
-        {
-            int filesCount = 0;
-            string folderFullPath = Path.GetFullPath(folder);
-            string archivePath = Path.Combine(folderFullPath, archiveName);
-
-            if (File.Exists(archiveName))
-            {
-                File.Delete(archivePath);
-            }
-
-            IEnumerable<string> files = Directory.EnumerateFiles(folder, "*.*", SearchOption.AllDirectories);
-            using (ZipArchive archive = ZipFile.Open(archivePath, ZipArchiveMode.Create))
-            {
-                foreach (string file in files)
-                {
-                    if (!Excluded(file, exceptions))
-                    {
-                        try
-                        {
-                            var addFile = Path.GetFullPath(file);
-                            if (addFile != archivePath)
-                            {
-                                addFile = addFile.Substring(folderFullPath.Length + 1);
-                                archive.CreateEntryFromFile(file, addFile);
-                                filesCount++;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, "Erro!", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-                }
-            }
-            return filesCount;
-        }
-
-        public static bool Excluded(string file, IList<string> exceptions)
-        {
-            List<string> folderNames = (from folder in exceptions where folder.StartsWith(@"\") || folder.StartsWith(@"/") select folder).ToList<string>();
-            if(!exceptions.Contains(Path.GetExtension(file)))
-            {
-                foreach (string folderException in folderNames)
-                {
-                    if(Path.GetDirectoryName(file).Contains(folderException))
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-            return true;
-        }
-        */
 
         public void MoveToParent(string databaseFile)
         {
