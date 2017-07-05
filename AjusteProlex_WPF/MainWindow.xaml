@@ -173,7 +173,8 @@
                 x:Name="TabProtesto"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                Header="Protesto">
+                Header="Protesto"
+                IsEnabled="False">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
@@ -358,11 +359,17 @@
                 </Grid>
             </TabItem>
 
-            <TabItem x:Name="TabTDPJ" Header="TDPJ">
+            <TabItem
+                x:Name="TabTDPJ"
+                Header="TDPJ"
+                IsEnabled="False">
                 <Grid />
             </TabItem>
 
-            <TabItem x:Name="TabProlexNet" Header="ProlexNet">
+            <TabItem
+                x:Name="TabProlexNet"
+                Header="ProlexNet"
+                IsEnabled="False">
                 <Grid />
             </TabItem>
 
@@ -407,6 +414,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
@@ -430,6 +438,8 @@
                                         <Image
                                             Grid.Row="0"
                                             Grid.Column="0"
+                                            Width="50"
+                                            Height="50"
                                             HorizontalAlignment="Left"
                                             Source="Resources\icon-backup-100px.png"
                                             Stretch="Uniform" />
@@ -465,16 +475,31 @@
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Text="2º Passo: Localizar e remover instalações antigas do Firebird" />
-                                    <Image
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        HorizontalAlignment="Left"
-                                        Source="Resources\icon-delete-100px.png"
-                                        Stretch="Uniform" />
+                                    <Grid Grid.Row="0" Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Width="Auto"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Text="2º Passo: Remover instalações antigas do Firebird" />
+
+                                        <Image
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Width="50"
+                                            Height="50"
+                                            HorizontalAlignment="Left"
+                                            Source="Resources\icon-delete-100px.png"
+                                            Stretch="Uniform" />
+                                    </Grid>
                                     <Button
                                         x:Name="ButtonRemoverFirebird"
                                         Grid.Row="2"
@@ -506,17 +531,31 @@
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Grid.Column="1"
-                                        Width="Auto"
-                                        Text="3º Passo: Instalar o Firebird 3" />
-                                    <Image
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        HorizontalAlignment="Left"
-                                        Source="Resources\icon-install-100px.png"
-                                        Stretch="Uniform" />
+                                    <Grid Grid.Row="0" Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Width="Auto"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Text="3º Passo: Instalar o Firebird 3" />
+
+                                        <Image
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Width="50"
+                                            Height="50"
+                                            HorizontalAlignment="Left"
+                                            Source="Resources\icon-install-100px.png"
+                                            Stretch="Uniform" />
+                                    </Grid>
                                     <CheckBox
                                         x:Name="checkboxSilentInstallation"
                                         Grid.Row="2"
@@ -556,16 +595,31 @@
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Text="4º Passo: Recriar os Aliases" />
-                                    <Image
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        HorizontalAlignment="Left"
-                                        Source="Resources\icon-alias-100px.png"
-                                        Stretch="Uniform" />
+                                    <Grid Grid.Row="0" Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Width="Auto"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Text="4º Passo: Recriar os Aliases" />
+
+                                        <Image
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Width="50"
+                                            Height="50"
+                                            HorizontalAlignment="Left"
+                                            Source="Resources\icon-alias-100px.png"
+                                            Stretch="Uniform" />
+                                    </Grid>
                                     <Button
                                         x:Name="ButtonRestaurarAliases"
                                         Grid.Row="2"
@@ -597,16 +651,31 @@
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Text="5º Passo: Restaurar o Backup do banco de dados" />
-                                    <Image
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        HorizontalAlignment="Left"
-                                        Source="Resources\icon-restore-100px.png"
-                                        Stretch="Uniform" />
+                                    <Grid Grid.Row="0" Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Width="Auto"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Text="5º Passo: Restaurar o banco de dados" />
+
+                                        <Image
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Width="50"
+                                            Height="50"
+                                            HorizontalAlignment="Left"
+                                            Source="Resources\icon-restore-100px.png"
+                                            Stretch="Uniform" />
+                                    </Grid>
                                     <Button
                                         x:Name="ButtonRestaurarBackup"
                                         Grid.Row="2"
@@ -638,16 +707,31 @@
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Text="6º Passo: Atualizar as DLLs" />
-                                    <Image
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        HorizontalAlignment="Left"
-                                        Source="Resources\icon-download-100px.png"
-                                        Stretch="Uniform" />
+                                    <Grid Grid.Row="0" Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Width="Auto"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Text="6º Passo: Atualização das DLLs" />
+
+                                        <Image
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Width="50"
+                                            Height="50"
+                                            HorizontalAlignment="Left"
+                                            Source="Resources\icon-download-100px.png"
+                                            Stretch="Uniform" />
+                                    </Grid>
                                     <Button
                                         x:Name="ButtonAtualizarDLLs"
                                         Grid.Row="2"
