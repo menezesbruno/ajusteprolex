@@ -431,8 +431,9 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             Width="Auto"
+                                            Margin="5"
                                             HorizontalAlignment="Right"
-                                            VerticalAlignment="Center"
+                                            VerticalAlignment="Top"
                                             Text="1º Passo: Realizar o Backup do banco de dados" />
 
                                         <Image
@@ -487,8 +488,9 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             Width="Auto"
+                                            Margin="5"
                                             HorizontalAlignment="Right"
-                                            VerticalAlignment="Center"
+                                            VerticalAlignment="Top"
                                             Text="2º Passo: Remover instalações antigas do Firebird" />
 
                                         <Image
@@ -543,8 +545,9 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             Width="Auto"
+                                            Margin="5"
                                             HorizontalAlignment="Right"
-                                            VerticalAlignment="Center"
+                                            VerticalAlignment="Top"
                                             Text="3º Passo: Instalar o Firebird 3" />
 
                                         <Image
@@ -607,8 +610,9 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             Width="Auto"
+                                            Margin="5"
                                             HorizontalAlignment="Right"
-                                            VerticalAlignment="Center"
+                                            VerticalAlignment="Top"
                                             Text="4º Passo: Recriar os Aliases" />
 
                                         <Image
@@ -663,8 +667,9 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             Width="Auto"
+                                            Margin="5"
                                             HorizontalAlignment="Right"
-                                            VerticalAlignment="Center"
+                                            VerticalAlignment="Top"
                                             Text="5º Passo: Restaurar o banco de dados" />
 
                                         <Image
@@ -719,8 +724,9 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             Width="Auto"
+                                            Margin="5"
                                             HorizontalAlignment="Right"
-                                            VerticalAlignment="Center"
+                                            VerticalAlignment="Top"
                                             Text="6º Passo: Atualização das DLLs" />
 
                                         <Image
