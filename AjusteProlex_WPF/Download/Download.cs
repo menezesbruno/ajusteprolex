@@ -91,6 +91,7 @@ namespace AjusteProlex_WPF.Download
             await DownloadFileInBackgroundAsync(url, path, hash);
             }
         }
+
         public async Task DownloadFileInBackgroundAsync(string url, string path, string hash)
         {
             WebClient client = new WebClient();
